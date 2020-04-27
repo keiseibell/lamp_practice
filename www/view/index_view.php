@@ -20,7 +20,7 @@
         <div class="col-6 item">
           <div class="card h-100 text-center">
             <div class="card-header">
-              <?php print($item['name']); ?>
+              <?php print htmlspecialchars($item['name'],ENT_QUOTES, 'UTF-8'); ?>
             </div>
             <figure class="card-body">
               <img class="card-img" src="<?php print(IMAGE_PATH . $item['image']); ?>">
@@ -30,6 +30,8 @@
                   <form action="index_add_cart.php" method="post">
                     <input type="submit" value="カートに追加" class="btn btn-primary btn-block">
                     <input type="hidden" name="item_id" value="<?php print($item['item_id']); ?>">
+                    <input type="hidden" name="csrf_token" value="<?php print $token ; ?>">
+
                   </form>
                 <?php } else { ?>
                   <p class="text-danger">現在売り切れです。</p>
@@ -42,6 +44,24 @@
       </div>
     </div>
   </div>
-  
+    <h1 class= "ranking">人気商品ランキング</h1>
+    <table class = "ranking">
+        <tbody>
+        <tr>
+            <th>１位</th>
+            <th>２位</th>
+            <th>３位</th>
+        </tr>
+        <tr>
+            <?php foreach ($data as $value)  { ?>
+              <td>
+                <?php print htmlspecialchars($value['name'],ENT_QUOTES, 'UTF-8'); ?>
+                <img class="card-img" src="<?php print(IMAGE_PATH . $value['image']); ?>">
+              </td>
+            <?php }?>
+        </tr>
+        </tbody>
+    </table>
+  </div> 
 </body>
 </html>

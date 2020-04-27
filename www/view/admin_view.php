@@ -12,6 +12,7 @@
 
   <div class="container">
     <h1>商品管理</h1>
+    <p><input type="submit" value="全体購入履歴一覧"></p>
 
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
@@ -43,8 +44,8 @@
           <option value="close">非公開</option>
         </select>
       </div>
-      
       <input type="submit" value="商品追加" class="btn btn-primary">
+      <input type="hidden" name="csrf_token" value="<?php print $token ; ?>">
     </form>
 
 
@@ -63,7 +64,7 @@
           <?php foreach($items as $item){ ?>
           <tr class="<?php print(is_open($item) ? '' : 'close_item'); ?>">
             <td><img src="<?php print(IMAGE_PATH . $item['image']);?>" class="item_image"></td>
-            <td><?php print($item['name']); ?></td>
+            <td><?php print htmlspecialchars($item['name'],ENT_QUOTES, 'UTF-8'); ?></td>
             <td><?php print(number_format($item['price'])); ?>円</td>
             <td>
               <form method="post" action="admin_change_stock.php">
@@ -74,6 +75,7 @@
                 </div>
                 <input type="submit" value="変更" class="btn btn-secondary">
                 <input type="hidden" name="item_id" value="<?php print($item['item_id']); ?>">
+                <input type="hidden" name="csrf_token" value="<?php print $token ; ?>">
               </form>
             </td>
             <td>
@@ -87,11 +89,14 @@
                   <input type="hidden" name="changes_to" value="open">
                 <?php } ?>
                 <input type="hidden" name="item_id" value="<?php print($item['item_id']); ?>">
+                <input type="hidden" name="csrf_token" value="<?php print $token; ?>">
+
               </form>
 
               <form method="post" action="admin_delete_item.php">
                 <input type="submit" value="削除" class="btn btn-danger delete">
                 <input type="hidden" name="item_id" value="<?php print($item['item_id']); ?>">
+                <input type="hidden" name="csrf_token" value="<?php print $token ; ?>">
               </form>
 
             </td>

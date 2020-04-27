@@ -14,11 +14,17 @@ $password = get_post('password');
 
 $db = get_db_connect();
 
+$token = $_POST['csrf_token'] ;
 
-$user = login_as($db, $name, $password);
-if( $user === false){
-  set_error('ログインに失敗しました。');
-  redirect_to(LOGIN_URL);
+if(is_valid_csrf_token($token) !== false){
+  $user = login_as($db, $name, $password);
+  if( $user === false){
+    set_error('ログインに失敗しました。');
+    redirect_to(LOGIN_URL);
+  }
+}else{
+  set_error('トークン不一致');
+
 }
 
 set_message('ログインしました。');

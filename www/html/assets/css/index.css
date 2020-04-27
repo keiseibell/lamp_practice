@@ -2,3 +2,14 @@
   margin-top: 10px;
 }
 
+.ranking{
+ width:900px;
+ text-align:center;
+ margin:auto;
+}
+
+td{
+  width:300px;
+  height:300px;
+  border:1px solid;
+}
