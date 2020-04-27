@@ -33,7 +33,7 @@ function get_user_by_name($db, $name){
     LIMIT 1
   ";
   $params = array($name);
-  return fetch_query($db, $sql, $name);
+  return fetch_query($db, $sql, $params);
 }
 
 function login_as($db, $name, $password){

@@ -116,7 +116,11 @@ function purchase_carts($db, $carts){
       set_error($cart['name'] . 'の購入に失敗しました。');
     }
   }
-  
+  make_order_list($db,$carts[0]['user_id']) ;
+  $order_id = $db->lastInsertId('order_id');
+  foreach($carts as $cart){
+  make_order_detail($db,$order_id,$cart['item_id'],$cart['price'],$cart['amount']);
+  }
   delete_user_carts($db, $carts[0]['user_id']);
 }
 
